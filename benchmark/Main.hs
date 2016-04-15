@@ -21,22 +21,22 @@ main = do
     defaultMain
     -- Not sure if NF or WHNF is more accurate, lets just test both
         [ bgroup "random-bench NF Data.List"
-            [ bench "Control Random" $ nfIO controlRandomL
+            [ bench "System Random" $ nfIO systemRandomL
             , bench "MWC Random" $ nfIO (mwcRandomL gen)
             , bench "Mersenne Random" $ nf mersRandomL mersGen
             ]
         , bgroup "random-bench WHNF Data.List"
-            [ bench "Control Random" $ whnfIO controlRandomL
+            [ bench "System Random" $ whnfIO systemRandomL
             , bench "MWC Random" $ whnfIO (mwcRandomL gen)
             , bench "Mersenne Random" $ whnf mersRandomL mersGen
             ]
         , bgroup "random-bench NF Data.Seq"
-            [ bench "Control Random" $ nfIO controlRandomS
+            [ bench "System Random" $ nfIO systemRandomS
             , bench "MWC Random" $ nfIO (mwcRandomS gen)
             , bench "Mersenne Random" $ nf mersRandomS mersGen
             ]
         , bgroup "random-bench WHNF Data.Seq"
-            [ bench "Control Random" $ whnfIO controlRandomS
+            [ bench "System Random" $ whnfIO systemRandomS
             , bench "MWC Random" $ whnfIO (mwcRandomS gen)
             , bench "Mersenne Random" $ whnf mersRandomS mersGen
             ]
@@ -48,11 +48,11 @@ main = do
             ]
         ]
 
-controlRandomL :: IO [Int]
-controlRandomL = replicateM rounds getRandom
+systemRandomL :: IO [Int]
+systemRandomL = replicateM rounds getRandom
 
-controlRandomS :: IO (Seq.Seq Int)
-controlRandomS = Seq.replicateM rounds getRandom
+systemRandomS :: IO (Seq.Seq Int)
+systemRandomS = Seq.replicateM rounds getRandom
 
 mwcRandomL :: MWC.GenIO -> IO [Int]
 mwcRandomL gen = replicateM rounds (MWC.uniform gen)
@@ -68,7 +68,6 @@ mersRandomS = evalState (Seq.replicateM rounds newMersRandom)
 
 mwcRandomV :: MWC.GenIO -> IO (V.Vector Int)
 mwcRandomV gen = MWC.uniformVector gen rounds
-
 
 type MersState = State Mers.PureMT Int
 
