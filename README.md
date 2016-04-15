@@ -1,6 +1,6 @@
 # Benchmark random libraries
 
-The following libraries as included in the benchmark:
+The following libraries are included in the benchmark:
 
 - [System.Random][System.Random]
 - [System.Random.MWC][System.Random.MWC]
