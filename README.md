@@ -8,7 +8,7 @@ The following libraries are included in the benchmark:
 
 to run it:
 
-    $ stack bench --benchmark-arguments '--output=$benchmark.html'
+    $ stack exec random-benchmark -- output=random-benchmark.html
 
 this should create a file called `random-benchmark.html` in the directory. Then
 simply view it with:
